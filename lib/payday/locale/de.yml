@@ -5,6 +5,7 @@ de:
       paid: BEZAHLT
       refunded: ZURÜCKGEZAHLT
     invoice:
+      title: RECHNUNG
       bill_to: Rechnung an
       ship_to: Versenden an
       invoice_no: "Rechnungsnr.:"

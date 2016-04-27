@@ -5,6 +5,7 @@ nl:
       overdue: BETAALTERMIJN VERSTREKEN
       refund: FAKTUUR
     invoice:
+      title: FACTUUR
       bill_to: Te betalen door
       ship_to: Te bezorgen aan
       invoice_no: "Faktuur Nr:"

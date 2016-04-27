@@ -4,7 +4,8 @@ es:
       overdue: RETRASADO
       paid: PAGADO
       refunded: REINTEGRADO
-    invoice: 
+    invoice:
+      title: FACTURA
       bill_to: Facturar a
       invoice_no: "Recibo #:"
       due_date: "Vencimiento:"

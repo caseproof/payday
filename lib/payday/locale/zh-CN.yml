@@ -4,6 +4,7 @@ zh-CN:
       paid: 付款成功
       overdue: 已过期
     invoice:
+      title: 发票
       bill_to: 账单地址
       ship_to: 送货地址
       invoice_no: "单号 #:"

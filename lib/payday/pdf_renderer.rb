@@ -56,38 +56,41 @@ module Payday
     end
 
     def self.company_banner(invoice, pdf)
-      # render the logo
-      image = invoice_or_default(invoice, :invoice_logo)
-      height = nil
-      width = nil
+      ## render the logo
+      #image = invoice_or_default(invoice, :invoice_logo)
+      #height = nil
+      #width = nil
+#
+      ## Handle images defined with a hash of options
+      #if image.is_a?(Hash)
+      #  data = image
+      #  image = data[:filename]
+      #  width, height = data[:size].split("x").map(&:to_f)
+      #end
+#
+      #if File.extname(image) == ".svg"
+      #  logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
+      #  logo_height = logo_info[:height]
+      #else
+      #  logo_info = pdf.image(image, at: pdf.bounds.top_left, width: width, height: height)
+      #  logo_height = logo_info.scaled_height
+      #end
+#
+      ## render the company details
+      #table_data = []
+      #table_data << [bold_cell(pdf, invoice_or_default(invoice, :company_name).strip, size: 12)]
+#
+      #invoice_or_default(invoice, :company_details).lines.each { |line| table_data << [line] }
+#
+      #table = pdf.make_table(table_data, cell_style: { borders: [], padding: 0 })
 
-      # Handle images defined with a hash of options
-      if image.is_a?(Hash)
-        data = image
-        image = data[:filename]
-        width, height = data[:size].split("x").map(&:to_f)
+      title = I18n.t "payday.invoice.title", default: "INVOICE"
+      pdf.font("Helvetica-Bold") do
+        pdf.fill_color "000000"
+        pdf.text title, size: 40
       end
 
-      if File.extname(image) == ".svg"
-        logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
-        logo_height = logo_info[:height]
-      else
-        logo_info = pdf.image(image, at: pdf.bounds.top_left, width: width, height: height)
-        logo_height = logo_info.scaled_height
-      end
-
-      # render the company details
-      table_data = []
-      table_data << [bold_cell(pdf, invoice_or_default(invoice, :company_name).strip, size: 12)]
-
-      invoice_or_default(invoice, :company_details).lines.each { |line| table_data << [line] }
-
-      table = pdf.make_table(table_data, cell_style: { borders: [], padding: 0 })
-      pdf.bounding_box([pdf.bounds.width - table.width, pdf.bounds.top], width: table.width, height: table.height + 5) do
-        table.draw
-      end
-
-      pdf.move_cursor_to(pdf.bounds.top - logo_height - 20)
+      pdf.move_cursor_to(pdf.bounds.top - 60)
     end
 
     def self.bill_to_ship_to(invoice, pdf)

@@ -4,6 +4,7 @@ fr:
       paid: PAYÉ
       overdue: EN RETARD
     invoice:
+      title: "FACTURE D'ACHAT"
       bill_to: Facturé à
       ship_to: Livré à
       invoice_no: "Facture #:"
