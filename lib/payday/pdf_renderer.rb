@@ -90,7 +90,7 @@ module Payday
         pdf.text title, size: 40
       end
 
-      pdf.move_cursor_to(pdf.bounds.top - 60)
+      pdf.move_cursor_to(pdf.bounds.top)
     end
 
     def self.bill_to_ship_to(invoice, pdf)
