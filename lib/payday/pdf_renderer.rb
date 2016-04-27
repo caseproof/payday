@@ -112,6 +112,9 @@ module Payday
       #  logo_height = logo_info.scaled_height
       #end
 
+      # Placeholder until we get images back
+      logo_height = 80
+
       title = I18n.t "payday.invoice.title", default: "INVOICE"
       pdf.font("Helvetica-Bold") do
         pdf.fill_color "000000"
