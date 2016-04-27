@@ -76,13 +76,41 @@ module Payday
       #  logo_height = logo_info.scaled_height
       #end
 #
-      ## render the company details
+      # render the company details
       #table_data = []
       #table_data << [bold_cell(pdf, invoice_or_default(invoice, :company_name).strip, size: 12)]
 #
       #invoice_or_default(invoice, :company_details).lines.each { |line| table_data << [line] }
 #
       #table = pdf.make_table(table_data, cell_style: { borders: [], padding: 0 })
+#
+      #title = I18n.t "payday.invoice.title", default: "INVOICE"
+      #pdf.font("Helvetica-Bold") do
+      #  pdf.fill_color "000000"
+      #  pdf.draw_text title, size: 35, at: [0,pdf.bounds.top - 25]
+      #end
+#
+      #pdf.move_cursor_to(pdf.bounds.top - 100)
+
+      # render the logo
+      image = invoice_or_default(invoice, :invoice_logo)
+      height = nil
+      width = nil
+
+      # Handle images defined with a hash of options
+      if image.is_a?(Hash)
+        data = image
+        image = data[:filename]
+        width, height = data[:size].split("x").map(&:to_f)
+      end
+
+      #if File.extname(image) == ".svg"
+      #  logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
+      #  logo_height = logo_info[:height]
+      #else
+      #  logo_info = pdf.image(image, at: pdf.bounds.top_left, width: width, height: height)
+      #  logo_height = logo_info.scaled_height
+      #end
 
       title = I18n.t "payday.invoice.title", default: "INVOICE"
       pdf.font("Helvetica-Bold") do
@@ -90,7 +118,18 @@ module Payday
         pdf.draw_text title, size: 35, at: [0,pdf.bounds.top - 25]
       end
 
-      pdf.move_cursor_to(pdf.bounds.top - 100)
+      # render the company details
+      table_data = []
+      table_data << [bold_cell(pdf, invoice_or_default(invoice, :company_name).strip, size: 12)]
+
+      invoice_or_default(invoice, :company_details).lines.each { |line| table_data << [line] }
+
+      table = pdf.make_table(table_data, cell_style: { borders: [], padding: 0 })
+      pdf.bounding_box([pdf.bounds.width - table.width, pdf.bounds.top], width: table.width, height: table.height + 5) do
+        table.draw
+      end
+
+      pdf.move_cursor_to(pdf.bounds.top - logo_height - 20)
     end
 
     def self.bill_to_ship_to(invoice, pdf)
