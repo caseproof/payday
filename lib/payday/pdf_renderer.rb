@@ -87,7 +87,7 @@ module Payday
       title = I18n.t "payday.invoice.title", default: "INVOICE"
       pdf.font("Helvetica-Bold") do
         pdf.fill_color "000000"
-        pdf.draw_text title, size: 35, at: [0,0]
+        pdf.draw_text title, size: 35, at: [0,pdf.bounds.top]
       end
 
       pdf.move_cursor_to(pdf.bounds.top - 100)
